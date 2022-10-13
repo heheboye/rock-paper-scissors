@@ -3,13 +3,13 @@ const choices = ["Rock", "Paper", "Scissors"];
 let computerScore = 0;
 let userScore = 0;
 
-// Computer choice, will randomly land on one of the indexes of the 'choices' list every time it runs.
+// Will randomly land on one of the 'choices' indexes when executed.
 function getComputerChoice() {
   let choice = Math.floor(Math.random() * 3);
   return choices[choice];
 }
 
-// Will ask the user via prompt his option, and then it will lowercase the word an capitalize the first letter.
+// Will ask the user his choice via prompt, and then it will lowercase the word and capitalize the first letter.
 function playerChoice() {
   let choice = prompt("Type your choice (Rock, Paper or Scissors)", "");
   choice = choice.toLowerCase();
