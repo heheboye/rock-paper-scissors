@@ -1,5 +1,5 @@
 // Store choices on a list.
-const choices = ["Rock", "Paper", "Scissors"];
+const choices = ["ROCK", "PAPER", "SCISSORS"];
 let computerScore = 0;
 let userScore = 0;
 
@@ -9,33 +9,68 @@ function getComputerChoice() {
   return choices[choice];
 }
 
-// Will ask the user his choice via prompt, and then it will lowercase the word and capitalize the first letter.
-function playerChoice() {
-  let choice = prompt("Type your choice (Rock, Paper or Scissors)", "");
-  choice = choice.toLowerCase();
-  choice = choice[0].toUpperCase() + choice.slice(1);
-  return choice;
+function btnValue(e) {
+  let userChoice = e.target.innerText;
+  if (computerScore == 5 && computerScore > userScore) {
+    txtDisplay.innerText = "Computer wins the match!";
+    uScore.innerText = `YOU: ${userScore}`;
+    cScore.innerText = `COMPUTER: ${computerScore}`;
+    computerScore = 0;
+    userScore = 0;
+    uScore.innerText = `YOU: ${userScore}`;
+    cScore.innerText = `COMPUTER: ${computerScore}`;
+  } else if (userScore == 5 && userScore > computerScore) {
+    txtDisplay.innerText = "You won the match!";
+    uScore.innerText = `YOU: ${userScore}`;
+    cScore.innerText = `COMPUTER: ${computerScore}`;
+    computerScore = 0;
+    userScore = 0;
+    uScore.innerText = `YOU: ${userScore}`;
+    cScore.innerText = `COMPUTER: ${computerScore}`;
+  } else {
+    playRound(getComputerChoice(), userChoice);
+  }
 }
+
+const btnRock = document.getElementById('rock');
+const btnPaper = document.getElementById('paper');
+const btnScissors = document.getElementById('scissors');
+
+btnRock.addEventListener('click', btnValue);
+btnPaper.addEventListener('click', btnValue);
+btnScissors.addEventListener('click', btnValue);
+
+const cScore = document.getElementById('cScore');
+const uScore = document.getElementById('uScore');
+const txtDisplay = document.getElementById('txtDisplay');
 
 // Plays a round with the computer choice and the player choice.
 function playRound(computerChoice, playerChoice) {
-  computerChoice == "Rock" && playerChoice == "Paper" ? console.log(`You won, paper beats rock!${userScore++}`) : 
-  computerChoice == "Rock" && playerChoice == "Scissors" ? console.log(`You lost, rock beats scissors!${computerScore++}`) : 
-  computerChoice == "Paper" && playerChoice == "Scissors" ? console.log(`You won, scissors beats paper!${userScore++}`) : 
-  computerChoice == "Paper" && playerChoice == "Rock" ? console.log(`You lost, paper beats rock!${computerScore++}`) : 
-  computerChoice == "Scissors" && playerChoice == "Rock" ? console.log(`You won, rock beats scissors!${userScore++}`) : 
-  computerChoice == "Scissors" && playerChoice == "Paper" ? console.log(`You lost, scissors beats paper!${computerScore++}`) : 
-  console.log("It's a tie!");
-}
-
-// Plays the indicated amount of rounds and the player with most points wins.
-function game(rounds) {
-  computerScore = 0;
-  userScore = 0;
-  for (let i = 0; i < rounds; i++) {
-    playRound(getComputerChoice(), playerChoice());
+  if (computerChoice == "ROCK" && playerChoice == "PAPER") {
+    userScore++
+    uScore.innerText = `YOU: ${userScore}`;
+    txtDisplay.innerText = 'You won, paper beats rock!';
+  } else if (computerChoice == "ROCK" && playerChoice == "SCISSORS") {
+    computerScore++
+    cScore.innerText = `COMPUTER: ${computerScore}`;
+    txtDisplay.innerText = 'You lost, rock beats scissors!';
+  } else if (computerChoice == "PAPER" && playerChoice == "SCISSORS") {
+    userScore++
+    uScore.innerText = `YOU: ${userScore}`;
+    txtDisplay.innerText = 'You won, scissors beats paper!';
+  } else if (computerChoice == "PAPER" && playerChoice == "ROCK") {
+    computerScore++
+    cScore.innerText = `COMPUTER: ${computerScore}`;
+    txtDisplay.innerText = 'You lost, paper beats rock!';
+  } else if (computerChoice == "SCISSORS" && playerChoice == "ROCK") {
+    userScore++
+    uScore.innerText = `YOU: ${userScore}`;
+    txtDisplay.innerText = 'You won, rock beats scissors!';
+  } else if (computerChoice == "SCISSORS" && playerChoice == "PAPER") {
+    computerScore++
+    cScore.innerText = `COMPUTER: ${computerScore}`;
+    txtDisplay.innerText = 'You lost, scissors beats paper!';
+  } else {
+    txtDisplay.innerText = "It's a tie!";
   }
-  computerScore > userScore ? console.log(`You lost, the computer scored: ${computerScore} and you: ${userScore}`) : 
-  computerScore < userScore ? console.log(`You won, you scored: ${userScore} and the computer: ${computerScore}`) :
-  console.log(`It's a tie, you scored: ${userScore} and the computer: ${computerScore}`);
-}
+};
